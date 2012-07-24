@@ -35,7 +35,7 @@
     <div class="b-row">
         <label for="countries">Select country</label>
         <select class="b-core-ui-select__select" id="countries" name="countries">
-            <option value="United States">United States</option>
+            <option disabled="disabled" value="United States">United States</option>
             <option value="United Kingdom">United Kingdom</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Albania">Albania</option>
@@ -891,7 +891,18 @@
                 showArrows : true
             }
         });
-        $('#countries_3').сoreUISelect({ appendToBody : true });
+
+        $('#countries_3').сoreUISelect({
+            onInit : addCoreUISelectListener,
+            onOpen : addCoreUISelectListener,
+            onClose : addCoreUISelectListener,
+            onChange : addCoreUISelectListener,
+            onDestroy : addCoreUISelectListener
+        });
+
+        function addCoreUISelectListener(select, event){
+            //console.log(select, event);
+        }
     });
 </script>
 

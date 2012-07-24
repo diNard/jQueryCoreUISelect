@@ -142,6 +142,7 @@
         // Bind plugin elements
         this.domSelect.bind('focus', $.proxy(this, 'onFocus'));
         this.domSelect.bind('blur', $.proxy(this, 'onBlur'));
+        this.domSelect.bind('change', $.proxy(this, 'onChange'));
 
         if( $.browser.mobile) this.domSelect.bind('change', $.proxy(this, 'changeDropdownData'));
         this.select.bind('click', $.proxy(this, 'onSelectClick'));
@@ -196,11 +197,14 @@
             this.isSelectShow = false;
             this.dropdown.removeClass('show').addClass('hide');
             this.settings.onClose && this.settings.onClose.apply(this, [this.domSelect, 'close']);
+
         } else {
             if(this.isSelectFocus) {
                 this.domSelect.focus();
             }
         }
+
+        //this.domSelect.bind('change', $.proxy(this, 'onChange'));
     }
 
     CoreUISelect.prototype.hideAllDropdown = function() {
@@ -215,22 +219,19 @@
 
     CoreUISelect.prototype.changeDropdownData = function(event) {
         if((this.isSelectShow || this.isSelectFocus)) {
-            this.prevItemOfDomSelect = this.currentItemOfDomSelect;
             this.currentItemOfDomSelect = this.domSelect.find('option:selected');
             this.dropdownItem.removeClass("selected");
             this.dropdownItem.eq(this.domSelect.find('option').index($(this.domSelect).find('option:selected'))).addClass("selected");
             this.scrollToCurrentDropdownItem(this.dropdownItem.eq(this.getCurrentIndexOfItem()));
             this.setSelectValue(this.currentItemOfDomSelect.text());
-            this.onDomSelectChange();
         }
-        if( $.browser.mobile) this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);;
+        if( $.browser.mobile) this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
     }
 
     CoreUISelect.prototype.onDomSelectChange = function() {
-        if(this.prevItemOfDomSelect.val()!=this.currentItemOfDomSelect.val() && !$.browser.mobile) {
-            dispatchEvent(this.domSelect.get(0), 'change');
-            this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
-        }
+        this.domSelect.bind('change', $.proxy(this, 'onChange'));
+        dispatchEvent(this.domSelect.get(0), 'change');
+        this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
     }
 
     CoreUISelect.prototype.addListenerByServicesKey = function(event) {
@@ -267,18 +268,24 @@
         }
     }
 
+    CoreUISelect.prototype.onChange = function () {
+        this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
+    }
+
+
     CoreUISelect.prototype.onDropdownItemClick = function(event) {
         var item = $(event.currentTarget);
         var index = this.getCurrentIndexOfItem();
         if(!(item.hasClass('disabled') || item.hasClass('selected'))) {
+            this.domSelect.unbind('change', $.proxy(this, 'onChange'));
             var index = this.dropdown.find('.'+$(this.templates.dropdown.item).attr('class')).index(item)
-            this.prevItemOfDomSelect = this.domSelect.find('option:selected');
             this.dropdownItem.removeClass('selected');
             this.dropdownItem.eq(index).addClass('selected');
             this.domSelect.find('option').removeAttr('selected');
             this.domSelect.find('option').eq(index).attr('selected', true);
             this.setSelectValue(this.getSelectedItem().text());
             this.onDomSelectChange();
+
         }
         this.hideDropdown();
         return false;
