@@ -148,8 +148,6 @@
         this.dropdownItem.bind('click', $.proxy(this, 'onDropdownItemClick'));
     }
 
-
-
     CoreUISelect.prototype.getCurrentIndexOfItem = function(__item) {
         return this.domSelect.find('option').index($(this.domSelect).find('option:selected'));
     }
@@ -271,12 +269,14 @@
 
     CoreUISelect.prototype.onDropdownItemClick = function(event) {
         var item = $(event.currentTarget);
+        var index = this.getCurrentIndexOfItem();
         if(!(item.hasClass('disabled') || item.hasClass('selected'))) {
-            this.domSelect.find('option').removeAttr('selected');
-            this.domSelect.find('option').eq(item.index()).attr('selected', true);
-            this.dropdownItem.removeClass('selected');
-            this.dropdownItem.eq(item.index()).addClass('selected');
+            var index = this.dropdown.find('.'+$(this.templates.dropdown.item).attr('class')).index(item)
             this.prevItemOfDomSelect = this.domSelect.find('option:selected');
+            this.dropdownItem.removeClass('selected');
+            this.dropdownItem.eq(index).addClass('selected');
+            this.domSelect.find('option').removeAttr('selected');
+            this.domSelect.find('option').eq(index).attr('selected', true);
             this.setSelectValue(this.getSelectedItem().text());
             this.onDomSelectChange();
         }
