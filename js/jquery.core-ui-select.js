@@ -221,11 +221,12 @@
         if((this.isSelectShow || this.isSelectFocus)) {
             this.currentItemOfDomSelect = this.domSelect.find('option:selected');
             this.dropdownItem.removeClass("selected");
-            this.dropdownItem.eq(this.domSelect.find('option').index($(this.domSelect).find('option:selected'))).addClass("selected");
+            this.dropdownItem.eq(this.getCurrentIndexOfItem()).addClass("selected");
             this.scrollToCurrentDropdownItem(this.dropdownItem.eq(this.getCurrentIndexOfItem()));
             this.setSelectValue(this.currentItemOfDomSelect.text());
+
         }
-        if( $.browser.mobile) this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
+        if($.browser.mobile) this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
     }
 
     CoreUISelect.prototype.onDomSelectChange = function() {
@@ -272,10 +273,8 @@
         this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
     }
 
-
     CoreUISelect.prototype.onDropdownItemClick = function(event) {
         var item = $(event.currentTarget);
-        var index = this.getCurrentIndexOfItem();
         if(!(item.hasClass('disabled') || item.hasClass('selected'))) {
             this.domSelect.unbind('change', $.proxy(this, 'onChange'));
             var index = this.dropdown.find('.'+$(this.templates.dropdown.item).attr('class')).index(item)
@@ -290,7 +289,6 @@
         this.hideDropdown();
         return false;
     }
-
 
     CoreUISelect.prototype.onDocumentMouseDown = function(event) {
         this.isDocumentMouseDown = true;
@@ -361,11 +359,10 @@
     }
 
     CoreUISelect.prototype.destroy = function() {
-
         // Unbind plugin elements
         this.domSelect.unbind('focus', $.proxy(this, 'onFocus'));
         this.domSelect.unbind('blur', $.proxy(this, 'onBlur'));
-        this.domSelect.unbind('change', $.proxy(this, 'changeDropdownData'));
+        this.domSelect.unbind('change', $.proxy(this, 'onChange'));
         this.select.unbind('click', $.proxy(this, 'onSelectClick'));
         this.dropdownItem.unbind('click', $.proxy(this, 'onDropdownItemClick'));
         // Remove select container
@@ -417,12 +414,12 @@
 
     $(document).bind('keyup', function(event){
         for(var i=0; i<allSelects.length; i++){
-            if($.browser.safari) allSelects[i].changeDropdownData(event); // Hack for Safari
+            if($.browser.safari || $.browser.msie || $.browser.opera) allSelects[i].changeDropdownData(event); // Hack for Safari
             allSelects[i].addListenerByServicesKey(event);
         }
     });
 
-    $(document).bind($.browser.safari && !$.browser.opera ? 'keydown' : 'keypress', function(event){
+    $(document).bind($.browser.safari ? 'keydown' : 'keypress', function(event){
         for(var i=0; i<allSelects.length; i++){
             allSelects[i].changeDropdownData(event);
         }
