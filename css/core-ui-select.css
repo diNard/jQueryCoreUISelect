@@ -32,9 +32,14 @@
 }
 
 .b-core-ui-select__select_state_hide {
+    height: 1px !important;
+    margin: 0;
+    padding: 0;
     position: absolute;
-    left: -9999px;
-    opacity: 1;
+    width: 1px !important;
+    text-indent: -9999px;
+    overflow: hidden;
+    visibility: hidden;
 }
 
 .b-core-ui-select:HOVER {
@@ -114,6 +119,7 @@
 }
 
 .b-core-ui-select__dropdown__list {
+    overflow: hidden;
     margin: 0!important;
 }
 

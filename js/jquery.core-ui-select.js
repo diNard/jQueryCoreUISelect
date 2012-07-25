@@ -117,10 +117,19 @@
     }
 
     CoreUISelect.prototype.hideDomSelect = function() {
+
         this.domSelect.addClass('b-core-ui-select__select_state_hide');
+        this.domSelect.css({
+            'top' : this.select.position().top,
+            'left' : this.select.position().left
+        });
     }
 
     CoreUISelect.prototype.showDomSelect = function() {
+        this.domSelect.css({
+            'top' : 'auto',
+            'left' : 'auto'
+        })
         this.domSelect.removeClass('b-core-ui-select__select_state_hide') ;
     }
 
@@ -265,7 +274,7 @@
             this.isSelectFocus = false;
             this.select.removeClass('focus');
             this.settings.onBlur && this.settings.onBlur.apply(this, [this.domSelect, 'blur']);
-            this.hideDropdown();
+            //this.hideDropdown();
         }
     }
 
@@ -412,6 +421,12 @@
         }
     }
 
+    $(document).bind('mousedown', function(event){
+        for(var i=0; i<allSelects.length; i++){
+            allSelects[i].onDocumentMouseDown(event);
+        }
+    });
+
     $(document).bind('keyup', function(event){
         for(var i=0; i<allSelects.length; i++){
             if($.browser.safari || $.browser.msie || $.browser.opera) allSelects[i].changeDropdownData(event); // Hack for Safari
@@ -431,10 +446,6 @@
         }
     });
 
-    $(document).bind('mousedown', function(event){
-        for(var i=0; i<allSelects.length; i++){
-            allSelects[i].onDocumentMouseDown(event);
-        }
-    });
+
 
 })(jQuery);
