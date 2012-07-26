@@ -39,7 +39,8 @@
     width: 1px !important;
     text-indent: -9999px;
     overflow: hidden;
-    visibility: hidden;
+    opacity: 0;
+    filter: alpha(opacity = 0);
 }
 
 .b-core-ui-select:HOVER {

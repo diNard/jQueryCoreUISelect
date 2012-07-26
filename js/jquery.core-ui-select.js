@@ -206,14 +206,8 @@
             this.isSelectShow = false;
             this.dropdown.removeClass('show').addClass('hide');
             this.settings.onClose && this.settings.onClose.apply(this, [this.domSelect, 'close']);
-
-        } else {
-            if(this.isSelectFocus) {
-                this.domSelect.focus();
-            }
         }
-
-        //this.domSelect.bind('change', $.proxy(this, 'onChange'));
+        if(this.isSelectFocus) this.domSelect.focus();
     }
 
     CoreUISelect.prototype.hideAllDropdown = function() {
