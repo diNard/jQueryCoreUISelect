@@ -232,10 +232,10 @@
         if($.browser.mobile) this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
     }
 
-    CoreUISelect.prototype.onDomSelectChange = function() {
+    CoreUISelect.prototype.onDomSelectChange = function(_is) {
         this.domSelect.bind('change', $.proxy(this, 'onChange'));
         dispatchEvent(this.domSelect.get(0), 'change');
-        this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
+        if(!_is) this.settings.onChange && this.settings.onChange.apply(this, [this.domSelect, 'change']);
     }
 
     CoreUISelect.prototype.addListenerByServicesKey = function(event) {
@@ -286,7 +286,7 @@
             this.domSelect.find('option').removeAttr('selected');
             this.domSelect.find('option').eq(index).attr('selected', true);
             this.setSelectValue(this.getSelectedItem().text());
-            this.onDomSelectChange();
+            this.onDomSelectChange(true);
 
         }
         this.hideDropdown();
