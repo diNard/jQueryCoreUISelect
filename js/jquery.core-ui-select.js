@@ -379,10 +379,10 @@
     $.fn.сoreUISelect = function(__options, __templates) {
         return this.each(function () {
             var select = $(this).data('сoreUISelect');
+            if(__options == 'destroy' && !select) return;
             if(select){
                 __options = (typeof __options == "string" && select[__options]) ? __options : 'update';
                 select[__options].apply(select);
-
                 if(__options == 'destroy') {
                     $(this).removeData('сoreUISelect');
                     for(var i=0; i<allSelects.length; i++) {
