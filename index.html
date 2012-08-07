@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>jQuery сoreUISelect</title>
+    <title>jQuery coreUISelect</title>
     <meta charset="utf-8">
     <link href="css/core.css" media="screen" rel="stylesheet" type="text/css">
     <link href="css/core-ui-select.css" media="screen" rel="stylesheet" type="text/css">
@@ -11,10 +11,10 @@
 
 <div class="b-content">
     <h1 class="b-content__title">
-        jQuery сoreUISelect
+        jQuery coreUISelect
     </h1>
 
-	<p>jQuery сoreUISelect is a cross browser easy to stylize select element with jQuery and CSS. Requires jQuery 1.6 or higher</p>
+	<p>jQuery coreUISelect is a cross browser easy to stylize select element with jQuery and CSS. Requires jQuery 1.6 or higher</p>
 	<p><a href="https://github.com/shaggysmile/jQueryCoreUISelect">GitHub Page</a><br><a href="https://github.com/shaggysmile/jQueryCoreUISelect/zipball/master">Download ZIP</a></p>
     
 	<h2>Available Features:</h2>
@@ -30,7 +30,7 @@
 
     <h2>Default settings</h2>
     <pre class="b-code-block">
-        <code>$('#countries').сoreUISelect();</code>
+        <code>$('#countries').coreUISelect();</code>
     </pre>
     <div class="b-row">
         <label for="countries">Select country</label>
@@ -283,7 +283,7 @@
 
     <h2>Optiongroup support</h2>
     <pre class="b-code-block">
-        <code>$('#optiongroup').сoreUISelect();</code>
+        <code>$('#optiongroup').coreUISelect();</code>
     </pre>
     <div class="b-row">
         <label for="optiongroup">Select country</label>
@@ -335,7 +335,7 @@
 
     <h2>With jScrollPane plugin</h2>
     <pre class="b-code-block">
-        <code>$('#countries_2').сoreUISelect({</code>
+        <code>$('#countries_2').coreUISelect({</code>
         <code>    jScrollPane : {</code>
         <code>        verticalDragMinHeight: 20,</code>
         <code>        verticalDragMaxHeight: 20,</code>
@@ -594,7 +594,7 @@
     <h2>Append to body setting</h2>
     <p>Custom dropdown build in body</p>
     <pre class="b-code-block">
-        <code>$('#countries_3').сoreUISelect({</code>
+        <code>$('#countries_3').coreUISelect({</code>
         <code>    appendToBody : true</code>
         <code>});</code>
     </pre>
@@ -852,7 +852,7 @@
 
     <h2>Callback functions and API</h2>
     <pre class="b-code-block">
-        <code>$('.b-core-ui-select__select').сoreUISelect({</code>
+        <code>$('.b-core-ui-select__select').coreUISelect({</code>
         <code>    onInit : addCoreUISelectListener,</code>
         <code>    onOpen : addCoreUISelectListener,</code>
         <code>    onClose : addCoreUISelectListener,</code>
@@ -866,8 +866,8 @@
     </pre>
 
     <pre class="b-code-block">
-        <code>$('.b-core-ui-select__select').сoreUISelect('update')</code>
-		<code>$('.b-core-ui-select__select').сoreUISelect('destroy')</code>
+        <code>$('.b-core-ui-select__select').coreUISelect('update')</code>
+		<code>$('.b-core-ui-select__select').coreUISelect('destroy')</code>
     </pre>	
 
 </div>
@@ -877,16 +877,16 @@
 <script src="js/lib/jquery/plugins/jquery.scrollpane.js"></script>
 <script src="js/jquery.core-ui-select.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#optiongroup').сoreUISelect({
+    $(window).load(function () {
+        $('#optiongroup').coreUISelect({
             jScrollPane : {
                 verticalDragMinHeight: 20,
                 verticalDragMaxHeight: 20,
                 showArrows : true
             }
         });
-        $('#countries').сoreUISelect();
-        $('#countries_2').сoreUISelect({
+        $('#countries').coreUISelect();
+        $('#countries_2').coreUISelect({
             jScrollPane : {
                 verticalDragMinHeight: 20,
                 verticalDragMaxHeight: 20,
@@ -894,7 +894,7 @@
             }
         });
 
-        $('#countries_3').сoreUISelect({
+        $('#countries_3').coreUISelect({
             onInit : addCoreUISelectListener,
             onOpen : addCoreUISelectListener,
             onClose : addCoreUISelectListener,

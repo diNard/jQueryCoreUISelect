@@ -306,17 +306,16 @@
                 });
             }
 
-            var marginDifference = 0;
-            if(parseFloat(this.dropdown.css('margin-left'))!=0) marginDifference+=parseFloat(this.dropdown.css('margin-left'))
-            if(parseFloat(this.dropdown.css('margin-right'))!=0) marginDifference+=parseFloat(this.dropdown.css('margin-right')) ;
-            if(parseFloat(this.dropdown.css('padding-right'))!=0) marginDifference+=parseFloat(this.dropdown.css('padding-right'));
-            if(parseFloat(this.dropdown.css('padding-left'))!=0) marginDifference+=parseFloat(this.dropdown.css('padding-left'));
-            if(parseFloat(this.dropdown.css('border-left-width'))!=0) marginDifference+=parseFloat(this.dropdown.css('border-left-width'));
-            if(parseFloat(this.dropdown.css('border-right-width'))!=0) marginDifference+=parseFloat(this.dropdown.css('border-right-width'));
-            if(parseFloat(this.select.css('border-left-width'))!=0) marginDifference-=parseFloat(this.select.css('border-left-width'));
-            if(parseFloat(this.select.css('border-right-width'))!=0) marginDifference-=parseFloat(this.select.css('border-right-width'));
-            this.dropdown.width(this.select.innerWidth()-marginDifference);
-            if(this.isJScrollPane) this.initJScrollPane();
+            var marginDifferenceBySelect = this.select.width() - this.select.outerWidth();
+            var marginDifferenceByDropdown = this.dropdown.width() - this.dropdown.outerWidth();
+
+            this.dropdown.width(this.select.outerWidth());
+
+            if(this.dropdown.width() == this.select.outerWidth()) {
+                this.dropdown.width(this.dropdown.width()+marginDifferenceBySelect)
+            }
+
+
         }
     }
 
@@ -374,15 +373,15 @@
     }
 
 
-    $.fn.сoreUISelect = function(__options, __templates) {
+    $.fn.coreUISelect = function(__options, __templates) {
         return this.each(function () {
-            var select = $(this).data('сoreUISelect');
+            var select = $(this).data('coreUISelect');
             if(__options == 'destroy' && !select) return;
             if(select){
                 __options = (typeof __options == "string" && select[__options]) ? __options : 'update';
                 select[__options].apply(select);
                 if(__options == 'destroy') {
-                    $(this).removeData('сoreUISelect');
+                    $(this).removeData('coreUISelect');
                     for(var i=0; i<allSelects.length; i++) {
                         if(allSelects[i] == select) {
                             allSelects.splice(i, 1);
@@ -393,7 +392,7 @@
             } else {
                 select = new CoreUISelect($(this), __options, __templates);
                 allSelects.push(select);
-                $(this).data('сoreUISelect', select);
+                $(this).data('coreUISelect', select);
             }
 
         });
