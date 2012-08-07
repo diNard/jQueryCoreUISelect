@@ -313,11 +313,9 @@
             if(parseFloat(this.dropdown.css('padding-left'))!=0) marginDifference+=parseFloat(this.dropdown.css('padding-left'));
             if(parseFloat(this.dropdown.css('border-left-width'))!=0) marginDifference+=parseFloat(this.dropdown.css('border-left-width'));
             if(parseFloat(this.dropdown.css('border-right-width'))!=0) marginDifference+=parseFloat(this.dropdown.css('border-right-width'));
-            console.log(marginDifference)
             if(parseFloat(this.select.css('border-left-width'))!=0) marginDifference-=parseFloat(this.select.css('border-left-width'));
             if(parseFloat(this.select.css('border-right-width'))!=0) marginDifference-=parseFloat(this.select.css('border-right-width'));
             this.dropdown.width(this.select.innerWidth()-marginDifference);
-            console.log(marginDifference)
             if(this.isJScrollPane) this.initJScrollPane();
         }
     }

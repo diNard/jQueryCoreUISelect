@@ -1,7 +1,7 @@
 jQuery coreUISelect
 ===================
 
-jQuery coreUISelect is a cross browser easy to stylize select element with jQuery and CSS
+jQuery coreUISelect is a cross browser easy to stylize select element with jQuery and CSS. Requires jQuery 1.6 or higher
 
 ## Available Features:
 
