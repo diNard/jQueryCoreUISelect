@@ -315,6 +315,7 @@
                 this.dropdown.width(this.dropdown.width()+marginDifferenceBySelect)
             }
 
+            if(this.isJScrollPane) this.initJScrollPane();
 
         }
     }
