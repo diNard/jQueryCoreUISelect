@@ -1,4 +1,5 @@
 .b-core-ui-select {
+    box-sizing: border-box;
     position: relative;
     width: 80%;
     padding: 10px;
@@ -31,6 +32,14 @@
     line-height: 18px;
 }
 
+.b-core-ui-select__value {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 25px;
+}
+
 .b-core-ui-select__select_state_hide {
     height: 1px !important;
     margin: 0;
@@ -54,8 +63,8 @@
 .b-core-ui-select.focus {
     background-color: #e6e6e6;
     background-image: none;
+    border-color: #ccc;
     outline: 0;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .b-core-ui-select.disabled,
@@ -83,9 +92,11 @@
 }
 
 .b-core-ui-select__dropdown {
+    box-sizing: border-box;
     display: none;
     position: absolute;
     top: 0;
+    color: #333;
     padding: 10px;
     max-height: 200px;
     font-size: 12px;

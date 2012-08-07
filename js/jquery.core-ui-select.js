@@ -66,10 +66,6 @@
         }
         if(this.isJScrollPane) this.buildJScrollPane();
         this.bindUIEvents();
-        if($.browser.mobile) {
-            this.simulateShowedDomSelect();
-            return this;
-        }
         this.settings.onInit && this.settings.onInit.apply(this, [this.domSelect, 'init']);
 
     }
@@ -133,20 +129,6 @@
         this.domSelect.removeClass('b-core-ui-select__select_state_hide') ;
     }
 
-    CoreUISelect.prototype.simulateShowedDomSelect = function () {
-       this.domSelect.css(
-            {
-                'position' : 'absolute',
-                'top' : this.select.position().top,
-                'left' : this.select.position().left,
-                'height' : this.select.height(),
-                'width' : this.select.innerWidth(),
-                'opacity' : 0,
-                'z-index' : -1
-            });
-       return this;
-    }
-
     CoreUISelect.prototype.bindUIEvents = function() {
         // Bind plugin elements
         this.domSelect.bind('focus', $.proxy(this, 'onFocus'));
@@ -194,6 +176,7 @@
         if($.browser.mobile) return this;
         if(!this.isSelectShow) {
             this.isSelectShow = true;
+            this.select.addClass('open');
             this.dropdown.addClass('show').removeClass('hide');
             if(this.isJScrollPane) this.initJScrollPane();
             this.scrollToCurrentDropdownItem(this.dropdownItem.eq(this.getCurrentIndexOfItem()));
@@ -204,6 +187,7 @@
     CoreUISelect.prototype.hideDropdown = function() {
         if(this.isSelectShow) {
             this.isSelectShow = false;
+            this.select.removeClass('open');
             this.dropdown.removeClass('show').addClass('hide');
             this.settings.onClose && this.settings.onClose.apply(this, [this.domSelect, 'close']);
         }
@@ -306,18 +290,34 @@
 
     CoreUISelect.prototype.updateDropdownPosition = function() {
         if(this.isSelectShow) {
-            this.dropdown.css({
-                'position' : 'absolute',
-                'top' : this.select.position().top+this.select.innerHeight(),
-                'left' : this.select.position().left,
-                'z-index' : '9999'
-            });
+            if(this.settings.appendToBody) {
+                this.dropdown.css({
+                    'position' : 'absolute',
+                    'top' : this.select.offset().top+this.select.innerHeight(),
+                    'left' : this.select.offset().left,
+                    'z-index' : '9999'
+                });
+            } else {
+                this.dropdown.css({
+                    'position' : 'absolute',
+                    'top' : this.select.position().top+this.select.innerHeight(),
+                    'left' : this.select.position().left,
+                    'z-index' : '9999'
+                });
+            }
+
             var marginDifference = 0;
             if(parseFloat(this.dropdown.css('margin-left'))!=0) marginDifference+=parseFloat(this.dropdown.css('margin-left'))
             if(parseFloat(this.dropdown.css('margin-right'))!=0) marginDifference+=parseFloat(this.dropdown.css('margin-right')) ;
             if(parseFloat(this.dropdown.css('padding-right'))!=0) marginDifference+=parseFloat(this.dropdown.css('padding-right'));
             if(parseFloat(this.dropdown.css('padding-left'))!=0) marginDifference+=parseFloat(this.dropdown.css('padding-left'));
+            if(parseFloat(this.dropdown.css('border-left-width'))!=0) marginDifference+=parseFloat(this.dropdown.css('border-left-width'));
+            if(parseFloat(this.dropdown.css('border-right-width'))!=0) marginDifference+=parseFloat(this.dropdown.css('border-right-width'));
+            console.log(marginDifference)
+            if(parseFloat(this.select.css('border-left-width'))!=0) marginDifference-=parseFloat(this.select.css('border-left-width'));
+            if(parseFloat(this.select.css('border-right-width'))!=0) marginDifference-=parseFloat(this.select.css('border-right-width'));
             this.dropdown.width(this.select.innerWidth()-marginDifference);
+            console.log(marginDifference)
             if(this.isJScrollPane) this.initJScrollPane();
         }
     }
