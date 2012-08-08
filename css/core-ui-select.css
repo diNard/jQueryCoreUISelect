@@ -1,5 +1,4 @@
 .b-core-ui-select {
-    box-sizing: border-box;
     position: relative;
     width: 80%;
     padding: 10px;
@@ -92,7 +91,6 @@
 }
 
 .b-core-ui-select__dropdown {
-    box-sizing: border-box;
     display: none;
     position: absolute;
     top: 0;

@@ -306,17 +306,16 @@
                 });
             }
 
-            var marginDifferenceBySelect = this.select.width() - this.select.outerWidth();
-            var marginDifferenceByDropdown = this.dropdown.width() - this.dropdown.outerWidth();
+            var marginDifferenceBySelect = this.select.outerWidth() - this.select.width();
+            var marginDifferenceByDropdown = this.dropdown.outerWidth() - this.dropdown.width();
 
-            this.dropdown.width(this.select.outerWidth());
+            this.dropdown.width(this.select.outerWidth(true));
 
             if(this.dropdown.width() == this.select.outerWidth()) {
-                this.dropdown.width(this.dropdown.width()+marginDifferenceBySelect)
+                this.dropdown.width((this.select.width()+marginDifferenceBySelect)-marginDifferenceByDropdown);
             }
 
             if(this.isJScrollPane) this.initJScrollPane();
-
         }
     }
 
