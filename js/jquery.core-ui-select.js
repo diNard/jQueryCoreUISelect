@@ -293,14 +293,14 @@
             if(this.settings.appendToBody) {
                 this.dropdown.css({
                     'position' : 'absolute',
-                    'top' : this.select.offset().top+this.select.innerHeight(),
+                    'top' : this.select.offset().top+this.select.outerHeight(true),
                     'left' : this.select.offset().left,
                     'z-index' : '9999'
                 });
             } else {
                 this.dropdown.css({
                     'position' : 'absolute',
-                    'top' : this.select.position().top+this.select.innerHeight(),
+                    'top' : this.select.position().top+this.select.outerHeight(true),
                     'left' : this.select.position().left,
                     'z-index' : '9999'
                 });
