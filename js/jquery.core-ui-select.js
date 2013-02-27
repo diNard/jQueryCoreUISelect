@@ -54,6 +54,9 @@
         }
 
         this.init(this.settings);
+        // Note: Not move it to init() or to functions which called within init()!
+        // An observer should be init just one time.
+        this.initObserver();
     }
 
     CoreUISelect.prototype.init = function() {
@@ -69,6 +72,26 @@
         this.settings.onInit && this.settings.onInit.apply(this, [this.domSelect, 'init']);
 
     }
+    
+    CoreUISelect.prototype.initObserver = function () {
+		var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+		var onObserver = false;
+		var self = this;
+		
+		var observer = new MutationObserver(function(mutations, observer) {
+			// Prevent calling method during the initialize/update mutation
+			if (onObserver) {
+				self.update();
+			}
+			onObserver = !onObserver;
+			return true;
+		});
+
+		observer.observe(this.domSelect.get(0), {
+			subtree: true,
+			attributes: true
+		});
+	}
 
     CoreUISelect.prototype.buildUI = function() {
 
