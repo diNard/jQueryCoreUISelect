@@ -54,29 +54,18 @@
         }
         
         this.init(this.settings);
-        // Note: Not move it to init() or to functions which called within init()!
-        // An observer should be init just one time.
         this.initObserver();
     }
     
     CoreUISelect.prototype.initObserver = function () {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-        var onObserver = false;
         var self = this;
-		
         var observer = new MutationObserver(function(mutations, observer) {
-            // Prevent re-calling method during the initializeupdate mutation
-            // otherwise we shall get an infinite loop
-            if (onObserver) {
-                self.update();
-            }
-            onObserver = !onObserver;
-            return true;
+            self.update();
         });
 
         observer.observe(this.domSelect.get(0), {
-            subtree: true,
-            attributes: true
+            childList: true
         });
     }
 
@@ -91,7 +80,6 @@
         if(this.isJScrollPane) this.buildJScrollPane();
         this.bindUIEvents();
         this.settings.onInit && this.settings.onInit.apply(this, [this.domSelect, 'init']);
-
     }
 
     CoreUISelect.prototype.buildUI = function() {
