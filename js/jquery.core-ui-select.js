@@ -78,7 +78,7 @@
             subtree: true,
             attributes: true
         });
-	}
+    }
 
     CoreUISelect.prototype.init = function() {
         if($.browser.operamini) return this;
