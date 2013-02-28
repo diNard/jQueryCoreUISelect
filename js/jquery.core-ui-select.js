@@ -54,10 +54,10 @@
         }
         
         this.init(this.settings);
-        this.initObserver();
+        this.initOptionsObserver();
     }
     
-    CoreUISelect.prototype.initObserver = function () {
+    CoreUISelect.prototype.initOptionsObserver = function () {
         var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
         var self = this;
         var observer = new MutationObserver(function(mutations, observer) {
