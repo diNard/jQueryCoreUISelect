@@ -60,24 +60,24 @@
     }
     
     CoreUISelect.prototype.initObserver = function () {
-		var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-		var onObserver = false;
-		var self = this;
+        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
+        var onObserver = false;
+        var self = this;
 		
-		var observer = new MutationObserver(function(mutations, observer) {
-			// Prevent re-calling method during the initializeupdate mutation
-			// otherwise we shall get an infinite loop
-			if (onObserver) {
-				self.update();
-			}
-			onObserver = !onObserver;
-			return true;
-		});
+        var observer = new MutationObserver(function(mutations, observer) {
+            // Prevent re-calling method during the initializeupdate mutation
+            // otherwise we shall get an infinite loop
+            if (onObserver) {
+                self.update();
+            }
+            onObserver = !onObserver;
+            return true;
+        });
 
-		observer.observe(this.domSelect.get(0), {
-			subtree: true,
-			attributes: true
-		});
+        observer.observe(this.domSelect.get(0), {
+            subtree: true,
+            attributes: true
+        });
 	}
 
     CoreUISelect.prototype.init = function() {
